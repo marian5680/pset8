@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <table>
+        <tr>
+            <th>Symbol</th>
+            <th class="name-column">Name</th>
+            <th class="number-column">Shares</th>
+            <th class="number-column">Price</th>
+            <th class="number-column">Total</th>
+        </tr>
+        {% for stock in stocks %}
+            {% if stock["shares"] > 0 %}
+                <tr>
+                    <td>{{ stock["symbol"] }}</td>
+                    <td class="name-column">{{ stock["name"] }}</td>
+                    <td class="number-column">{{ stock["shares"] }}</td>
+                    <td class="number-column">{{ stock["price"] }}</td>
+                    <td class="number-column">{{ stock["value"] }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        <tr>
+            <td>Cash</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="number-column">{{ cash }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="number-column"><b>{{ grand_total }}</b></td>
+        </tr>
+
+    </table>
+{% endblock %}

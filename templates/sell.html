@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <h1>Sell Stocks</h1>
+    <p>What stock would you like to sell?</p>
+
+    <script>
+        function changeMax()
+        {
+            //symbol = document.getElementById('symbol').options[document.getElementById('symbol').selectedIndex].text;
+            symbol = document.getElementById('symbol').value.split(',')[0];
+            numshares = document.getElementById('symbol').value.split(',')[1];
+            document.getElementById("quantity").max = numshares;
+            document.getElementById("info").innerHTML = "You have " + numshares + " share(s) of " + symbol + " stocks to sell.";
+        }
+
+        window.onload = function () {
+            document.getElementById("symbol").selectedIndex = "0";
+            //symbol = document.getElementById('symbol').options[document.getElementById('symbol').selectedIndex].text;
+            //numShares = document.getElementById('symbol').name;
+            symbol = document.getElementById('symbol').value.split(',')[0];
+            numshares = document.getElementById('symbol').value.split(',')[1];
+            document.getElementById("quantity").max = numshares;
+            document.getElementById("info").innerHTML = "You have " + numshares + " share(s) of " + symbol + " stocks to sell.";
+         };
+
+    </script>
+
+    <form action="/sell" method="post">
+        <div class="form-group">
+            <select id="symbol" name="symbol" onchange="changeMax()" >
+                {% for stock in stocks %}
+                    {% if stock["shares"] > 0 %}
+                        valuestr =
+                        <option value={{ stock["symbol"] }},{{ stock["shares"] }}>{{ stock["symbol"] }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <p id="info" style="color:red"></p>
+        </div>
+        <label for="quantity">Number of shares to sell:</label>
+        <input type="number" id="quantity" name="quantity" min="1"><br><br>
+
+        <button id="sell" class="btn btn-primary" type="submit">Sell</button>
+    </form>
+
+
+{% endblock %}

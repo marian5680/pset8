@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <table>
+        <tr>
+            <th>Symbol</th>
+            <th class="number-column">Shares</th>
+            <th class="number-column">Price</th>
+            <th class="number-column">Transaction Date</th>
+        </tr>
+        {% for stock in stocks %}
+            <tr>
+                <td>{{ stock["symbol"] }}</td>
+                <td class="number-column">{{ stock["shares"] }}</td>
+                <td class="number-column">{{ stock["price"] }}</td>
+                <td class="number-column">{{ stock["time"] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
